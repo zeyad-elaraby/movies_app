@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../film_play_screen.dart';
 import '../items/watch_list_item.dart';
 
 class WatchListTab extends StatelessWidget {
@@ -18,9 +19,22 @@ class WatchListTab extends StatelessWidget {
         ),
         Expanded(
           child: ListView.separated(itemBuilder: (context, index) {
-           return WatchListItem();
+           return InkWell(
+               onTap: () {
+                 Navigator.pushNamed(context, FilmPlayScreen.routeName);
+
+               },
+               child: WatchListItem());
           }, separatorBuilder: (context, index) {
-            return SizedBox(height:5,);
+            return Column(
+              children: [
+                Divider(
+                  height: 1,
+                  color: Color(0xFF707070),
+                ),
+                SizedBox(height:5,),
+              ],
+            );
           }, itemCount: 10),
         )
 
