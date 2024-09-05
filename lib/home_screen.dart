@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/tabs/browse_tab.dart';
 import 'package:movies_app/tabs/home_tab.dart';
 import 'package:movies_app/tabs/search_tab.dart';
+import 'package:movies_app/tabs/watch_list_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -52,5 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeTab(),
     SearchTab(),
     BrowseTab(),
+    WatchListTab(),
   ];
 }
