@@ -32,6 +32,7 @@ class MovieSuggesionList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(padding: EdgeInsets.symmetric(vertical: 4),
                         child: FilmItemWithRating(
+                          image: "assets/images/film_image.png",
                           movieName: "shawshank",
                           rating: "8",
                           publicationDate: "8/7/2003",
