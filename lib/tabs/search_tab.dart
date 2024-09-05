@@ -4,7 +4,6 @@ import '../items/searched_movie_item.dart';
 
 class SearchTab extends StatelessWidget {
   const SearchTab({super.key});
-  static const routeName = "SearchTab";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

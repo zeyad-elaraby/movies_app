@@ -5,11 +5,13 @@ import 'film_item.dart';
 
 class FilmItemWithRating extends StatelessWidget {
   String rating;
+  String image;
   String movieName;
   String publicationDate;
   FilmItemWithRating(
       {required this.rating,
       required this.movieName,
+      required this.image,
       required this.publicationDate,
       super.key});
 
@@ -31,7 +33,7 @@ class FilmItemWithRating extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           FilmItem(
-            filmImage: "assets/images/film_image.png",
+            filmImage: image,
           ),
           Padding(
             padding: EdgeInsets.only(left: 6, bottom: 10, right: 30, top: 6),
