@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/category_film_list.dart';
-import 'package:movies_app/film_play_screen.dart';
-import 'package:movies_app/tabs/browse_tab.dart';
-import 'package:movies_app/tabs/search_tab.dart';
 
 import 'home_screen.dart';
 
@@ -18,9 +14,6 @@ class MyApp extends StatelessWidget{
       initialRoute: HomeScreen.routeName,
       routes:{
         HomeScreen.routeName:(context)=>HomeScreen(),
-        FilmPlayScreen.routeName:(context)=>FilmPlayScreen(),
-        CategoryFilmList.routeName:(context)=>CategoryFilmList(),
-
       }
 
     );
