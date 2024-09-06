@@ -14,7 +14,6 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CarouselSlider.builder(
               options: CarouselOptions(
@@ -49,7 +48,12 @@ class HomeTab extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            FilmItem(filmImage: "assets/images/film_image.png",),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, FilmPlayScreen.routeName);
+
+                                },
+                                child: FilmItem(filmImage: "assets/images/film_image.png",)),
                             SizedBox(
                               width: 8,
                             ),
@@ -100,8 +104,13 @@ class HomeTab extends StatelessWidget {
                         child: ListView.separated(
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              return FilmItem(
-                                filmImage: "assets/images/film_image.png",
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, FilmPlayScreen.routeName);
+                                },
+                                child: FilmItem(
+                                  filmImage: "assets/images/film_image.png",
+                                ),
                               );
                             },
                             separatorBuilder: (context, index) {
@@ -118,7 +127,12 @@ class HomeTab extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15),
-              child:MovieSuggesionList(listTitle: "Recommended",itemCount: 6,),
+              child:InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, FilmPlayScreen.routeName);
+
+                  },
+                  child: MovieSuggesionList(listTitle: "Recommended",itemCount: 6,)),
             )
           ]),
     );
