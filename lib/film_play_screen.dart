@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movies_app/category_film_list.dart';
 
 import 'items/category_chip.dart';
 import 'items/film_item.dart';
@@ -77,38 +78,38 @@ class FilmPlayScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                CategoryChip(
-                                  text: 'crime',
-                                ),
-                                SizedBox(width: 3,),
-                                CategoryChip(
-                                  text: 'drama',
-                                ),
-                                SizedBox(width: 3,),
-                                CategoryChip(
-                                  text: 'anime',
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            CategoryChip(
-                              text: "action",
-                            ),
-                            Text(
-                              "Having spent most of her life exploring the jungle,nothing could  prepare Dora for her most dangerous adventure yet — high school.",
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 10,
-                                  color: Colors.white),
-                              textAlign: TextAlign.start,
+
+
+                            Wrap(
+                              spacing: 3,
+                              runSpacing: 5,
+                              children: List.generate(5, (index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context, CategoryFilmList.routeName);
+                                  },
+                                  child: CategoryChip(
+                                    text: ['crime', 'drama', 'anime', 'action', 'comedy'][index],
+                                  ),
+                                );
+                              }),
                             ),
 
+                          
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                "Having spent most of her life exploring the jungle,nothing could  prepare Dora for her most dangerous adventure yet — high school.",
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 10,
+                                    color: Colors.white),
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
                             Row(
                               children: [
                                 Image.asset("assets/images/rating_star.png"),
