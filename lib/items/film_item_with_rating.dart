@@ -56,11 +56,14 @@ class FilmItemWithRating extends StatelessWidget {
                   ],
                 ),
                 Text(movieName,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+
                     style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                         fontSize: 10)),
-                Text(publicationDate  ,
+                Text(publicationDate,
                     style: GoogleFonts.inder(
                         color: Color(0xFFB5B4B4),
                         fontWeight: FontWeight.w400,

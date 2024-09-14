@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class FilmItem extends StatefulWidget {
   String filmImage;
-  FilmItem({required this.filmImage,super.key});
+  FilmItem({required this.filmImage, super.key});
 
   @override
   State<FilmItem> createState() => _FilmItemState();
@@ -17,7 +17,12 @@ class _FilmItemState extends State<FilmItem> {
       children: [
         ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image(image: AssetImage(widget.filmImage),height: 150,width: 100)),
+            child: Image.network(
+              widget.filmImage,
+              height: 150,
+              width: 100,
+              fit: BoxFit.fill,
+            )),
         InkWell(
             onTap: () {
               setState(() {
@@ -26,13 +31,21 @@ class _FilmItemState extends State<FilmItem> {
             },
             child: bookMarkIcon
                 ? ClipRRect(
-                borderRadius: BorderRadius.only(topRight: Radius.circular(4,),topLeft: Radius.circular(4)),
-
-                child: Image.asset("assets/images/bookedmark.png"))
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(
+                          4,
+                        ),
+                        topLeft: Radius.circular(4)),
+                    child: Image.asset("assets/images/bookedmark.png"))
                 : ClipRRect(
-                borderRadius: BorderRadius.only(topRight: Radius.circular(4,),topLeft: Radius.circular(4)),
-
-                child: Image.asset("assets/images/un_booked_mark_icon.png",))),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(
+                          4,
+                        ),
+                        topLeft: Radius.circular(4)),
+                    child: Image.asset(
+                      "assets/images/un_booked_mark_icon.png",
+                    ))),
       ],
     );
   }
