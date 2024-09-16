@@ -7,22 +7,43 @@ import 'package:movies_app/film_play_screen.dart';
 import '../../items/category_item.dart';
 
 class BrowseTab extends StatelessWidget {
-  const BrowseTab({super.key});
+  BrowseTab({super.key});
+  List<String> categoriesImages = [
+    "assets/images/Deadpool And Wolverine 5k 2024.jpeg",
+    "assets/images/adventure.jpg",
+    "assets/images/despicable-me.jpg",
+    "assets/images/comedy.jpg",
+    "assets/images/Trap_ No Way Out.jpeg",
+    "assets/images/apolo13_survival.jpeg",
+    "assets/images/THE_CONVERT_image.jpg",
+    "assets/images/harold_and_the_purple_crayon.jpg",
+    "assets/images/beetle_Juice.jpg",
+    "assets/images/oppenheimer-header.jpg",
+    "assets/images/alien-romulus-poster-.jpg",
+    "assets/images/trollsbt.jpg",
+    "assets/images/Movie-Oddity-Stars-Gwilym-Lee-and-Carolyn-Bracken-Talk-Scary-Roles-and-Possible-Sequel-4-2048x1026.jpeg",
+    "assets/images/romance.jpg",
+    "assets/images/science_fiction.jpg",
+    "assets/images/tv_movie.jpg",
+    "assets/images/thriller.jpg",
+    "assets/images/war.jpg",
+    "assets/images/western.jpg",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: ApiManager.getMoviesList(),
       builder: (context, snapshot) {
-        if(snapshot.connectionState==ConnectionState.waiting){
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
-        }else if(snapshot.hasError){
+        } else if (snapshot.hasError) {
           return Text("somthing went wrong");
-        }
-        else if(snapshot.hasData){
-          var genres=snapshot.data?.genres??[];
-          if(genres.isEmpty){
+        } else if (snapshot.hasData) {
+          var genres = snapshot.data?.genres ?? [];
+          if (genres.isEmpty) {
             return Text("no categories to browse");
-          }else{
+          } else {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,10 +74,13 @@ class BrowseTab extends StatelessWidget {
                             onTap: () {
                               Navigator.pushNamed(
                                   context, CategoryFilmList.routeName,
-                              arguments: genres[index]
-                              );
+                                  arguments: genres[index]);
                             },
-                            child: CategoryItem(id: genres[index].id??0,name: genres[index].name??"",));
+                            child: CategoryItem(
+                              id: genres[index].id ?? 0,
+                              name: genres[index].name ?? "",
+                              image: categoriesImages[index],
+                            ));
                       },
                       itemCount: genres.length,
                     ),
@@ -65,7 +89,7 @@ class BrowseTab extends StatelessWidget {
               ],
             );
           }
-        }else{
+        } else {
           return Text("no categories to browse");
         }
       },
