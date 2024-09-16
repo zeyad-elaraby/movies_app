@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class CategoryItem extends StatelessWidget {
   String name;
   int id;
-  CategoryItem({required this.id,required this.name ,super.key});
+  String image;
+  CategoryItem({required this.id,required this.image,required this.name ,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class CategoryItem extends StatelessWidget {
       Positioned.fill(
           child: ClipRRect(
               borderRadius: BorderRadius.circular(4),
-              child:Image.asset("assets/images/browse_tab_image.png",
+              child:Image.asset(image,
                 fit: BoxFit.cover,
               )
           )),
