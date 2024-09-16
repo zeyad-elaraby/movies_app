@@ -120,22 +120,34 @@ class ApiManager{
     return moviesList;
   }
 
- static Future<SearchMovies> getSearchMovies (String query)
+ static Future<SearchMovies?> getSearchMovies (String query)
   async{
     Uri url=Uri.https("api.themoviedb.org","3/search/movie",
         {
           "language":"en-US","query": query,
         });
+    try{
+      http.Response response = await http.get(url,headers:  { "Authorization":
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZTU2Yzg2MzZiOTExOTBhMDdkNmExOWM5OWYyMDgzYyIsInN1YiI6IjY1NDE1Yzg3YjY4NmI5MDBlMTE4MDg1YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.45qrNJVRNiUMtYid_qmIp5kKJ_Q0Obk-yRRywYsGgP8",
+        "accept": "application/json"},);
+      if(response.statusCode==200){
+        Map<String,dynamic> jsonFormat= jsonDecode(response.body);
+        SearchMovies searchMovies=SearchMovies.fromJson(jsonFormat);
+        return searchMovies;
+      }else{
+        print("Error:${response.statusCode}");
+        return null;
+      }
 
-    http.Response response = await http.get(url,headers:  { "Authorization":
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZTU2Yzg2MzZiOTExOTBhMDdkNmExOWM5OWYyMDgzYyIsInN1YiI6IjY1NDE1Yzg3YjY4NmI5MDBlMTE4MDg1YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.45qrNJVRNiUMtYid_qmIp5kKJ_Q0Obk-yRRywYsGgP8",
-      "accept": "application/json"},);
-    Map<String,dynamic> jsonFormat= jsonDecode(response.body);
-    SearchMovies searchMovies=SearchMovies.fromJson(jsonFormat);
-    return searchMovies;
+    }catch(e){
+print("exception: ${e.toString()}");
+return null;
+
+
+    }
   }
 
- static  Future<Object> getMovieDiscover (num id)
+ static  Future<MovieDiscover?> getMovieDiscover (num id)
   async{
     Uri url=Uri.https("api.themoviedb.org","3/discover/movie",
         {
@@ -156,7 +168,7 @@ class ApiManager{
     {
       print(e.toString());
     }
-    return MovieDiscover;
+    return null;
 
   }
 

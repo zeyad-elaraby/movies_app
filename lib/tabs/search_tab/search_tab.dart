@@ -17,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Color(0xFF121312),
       child: SafeArea(
         child: Container(
           height: double.infinity,
@@ -26,21 +26,29 @@ class _SearchScreenState extends State<SearchScreen> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   onChanged: (value) {
                     query = value;
                     setState(() {});
                   },
                   decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey,
-                    hintText: 'Search',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide(color: Color(0xFF9b9c9b))
                     ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(color: Color(0xFF9b9c9b))
+                    ),
+
+                    enabled: true,
+                    filled: true,
+                    fillColor: Color(0xFF514F4F),
+                    hintText: 'Search',
+                    hintStyle: TextStyle(color: Color(0xFF939292)),
                     prefixIcon: Icon(
                       Icons.search,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -56,12 +64,12 @@ class _SearchScreenState extends State<SearchScreen> {
                         size: MediaQuery.of(context).size.width * 0.35),
                     Text(
                       'No Movies Found',
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: TextStyle(color: Color(0xFF9b9c9b)),
                     )
                   ],
                 ),
               )
-                  : FutureBuilder<SearchMovies>(
+                  : FutureBuilder(
                 future: ApiManager.getSearchMovies(query),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState ==
@@ -88,7 +96,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 size: MediaQuery.of(context).size.width * 0.35),
                             Text(
                               'No Movies Found',
-                              style: Theme.of(context).textTheme.titleLarge,
+                              style: TextStyle(color: Color(0xFF9b9c9b)),
                             )
                           ],
                         ),
@@ -99,19 +107,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     return Expanded(
                       child: ListView.separated(
                         itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              print(widget.searchResults[index].id);
-                              Navigator.pushNamed(
-                                context,
-                                FilmPlayScreen.routeName,
-                                arguments:  widget.searchResults[index].id,
-
-                              );
-                            },
-                            child: SearchedMovieItem(
-                              movie: widget.searchResults[index],
-                            ),
+                          return SearchedMovieItem(
+                            movie: widget.searchResults[index],
                           );
                         },
                         itemCount: widget.searchResults.length,
@@ -139,7 +136,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               size: MediaQuery.of(context).size.width * 0.35),
                           Text(
                             'No Movies Found',
-                            style: Theme.of(context).textTheme.titleLarge,
+                            style: TextStyle(color: Color(0xFF9b9c9b)),
                           )
                         ],
                       ),

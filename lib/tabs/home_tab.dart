@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:movies_app/apis/api_manager/api_manager1.dart';
 
 import '../apis/api_manager/api_manager.dart';
 import '../film_play_screen.dart';

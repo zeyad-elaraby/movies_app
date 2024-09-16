@@ -139,7 +139,7 @@ print("this is in film $movieId");
                                       width: 3,
                                     ),
                                     Text(
-                                      (data.voteAverage.toString()),
+                                      (data.voteAverage.toString().substring(0,3)),
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ],

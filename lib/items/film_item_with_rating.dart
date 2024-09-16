@@ -47,7 +47,7 @@ class FilmItemWithRating extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      rating,
+                      rating.substring(0,3),
                       style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
@@ -57,7 +57,7 @@ class FilmItemWithRating extends StatelessWidget {
                 ),
                 Text(movieName,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: 1,
 
                     style: GoogleFonts.poppins(
                         color: Colors.white,

@@ -18,7 +18,7 @@ class SearchedMovieItem extends StatelessWidget {
               width: 333,
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, FilmPlayScreen.routeName);
+                  Navigator.pushNamed(context, FilmPlayScreen.routeName,arguments: movie.id);
                 },
                 child: Row(
                   children: [
@@ -68,10 +68,7 @@ class SearchedMovieItem extends StatelessWidget {
           SizedBox(
             height: 13,
           ),
-          Divider(
-            height: 1,
-            color: Color(0xFF707070),
-          ),
+
         ],
       ),
     );
