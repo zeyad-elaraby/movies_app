@@ -100,20 +100,15 @@ print("this is in film $movieId");
                                 Wrap(
                                   spacing: 3,
                                   runSpacing: 5,
-                                  children: List.generate(5, (index) {
+                                  children: List.generate(data.genres?.length??0, (index) {
                                     return InkWell(
                                       onTap: () {
                                         Navigator.pushNamed(context,
-                                            CategoryFilmList.routeName);
+                                            CategoryFilmList.routeName, arguments:data. genres?[index],);
                                       },
                                       child: CategoryChip(
-                                        text: [
-                                          'crime',
-                                          'drama',
-                                          'anime',
-                                          'action',
-                                          'comedy'
-                                        ][index],
+                                        text:data. genres?[index].name??"",
+
                                       ),
                                     );
                                   }),
