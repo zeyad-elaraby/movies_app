@@ -4,8 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../film_play_screen.dart';
 
 class WatchListItem extends StatefulWidget {
-   WatchListItem({super.key});
-  bool bookMarkIcon = false;
+  String image;
+  String title;
+  String releaseDate;
+  String description;
+  bool booked ;
+   WatchListItem({required this.image,required this.description,required this.booked,required this.releaseDate,required this.title,super.key});
 
   @override
   State<WatchListItem> createState() => _WatchListItemState();
@@ -24,18 +28,17 @@ class _WatchListItemState extends State<WatchListItem> {
                   borderRadius: BorderRadius.circular(5),
                   child: Stack(
                     children: [
-                      Image.asset(
-                        "assets/images/searched_movie_image.png",
-                        height: 89,
+                      Image.network(
+                        'https://image.tmdb.org/t/p/w200${widget.image}',
                         width: 140,
                       ),
                       InkWell(
                           onTap: () {
                             setState(() {
-                             widget. bookMarkIcon = !widget.bookMarkIcon;
+                             widget. booked = !widget.booked;
                             });
                           },
-                          child:widget. bookMarkIcon
+                          child:widget. booked
                               ? ClipRRect(
                               borderRadius: BorderRadius.only(topRight: Radius.circular(4,),topLeft: Radius.circular(4)),
 
@@ -55,19 +58,19 @@ class _WatchListItemState extends State<WatchListItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Alita Battle Angel",
+                     widget.title,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: GoogleFonts.inter(color: Colors.white, fontSize: 15),
                     ),
                     Text(
-                      "2019",
+                      widget.releaseDate,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style:
                       GoogleFonts.inter(color: Color(0xFFb2b2b2), fontSize: 15),
                     ),
-                    Text("Rosa Salazar, Christoph Waltz",
+                    Text(widget.description,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: GoogleFonts.inter(

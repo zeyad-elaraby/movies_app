@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class FilmItem extends StatefulWidget {
   String filmImage;
-  FilmItem({required this.filmImage, super.key});
+  Function addFilmWatchList;
+  FilmItem({required this.filmImage,required this.addFilmWatchList, super.key});
 
   @override
   State<FilmItem> createState() => _FilmItemState();
@@ -24,10 +25,12 @@ class _FilmItemState extends State<FilmItem> {
               fit: BoxFit.fill,
             )),
         InkWell(
-            onTap: () {
-              setState(() {
-                bookMarkIcon = !bookMarkIcon;
-              });
+            onTap:
+            () {
+                  setState(() {
+                    bookMarkIcon = !bookMarkIcon;
+                  });
+                  widget.addFilmWatchList();
             },
             child: bookMarkIcon
                 ? ClipRRect(
