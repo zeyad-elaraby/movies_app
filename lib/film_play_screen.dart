@@ -3,9 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/category_film_list.dart';
 
 import 'apis/api_manager/api_manager.dart';
+import 'firebase_functions.dart';
 import 'items/category_chip.dart';
 import 'items/film_item.dart';
 import 'items/film_item_with_rating.dart';
+import 'models/film_watch_list_model.dart';
 
 class FilmPlayScreen extends StatefulWidget {
   static const String routeName = "FilmPlayScreen";
@@ -19,7 +21,7 @@ class _FilmPlayScreenState extends State<FilmPlayScreen> {
   @override
   Widget build(BuildContext context) {
     num movieId = ModalRoute.of(context)?.settings.arguments as num;
-print("this is in film $movieId");
+    print("this is in film $movieId");
     return FutureBuilder(
       future: ApiManager.getDetails(movieId),
       builder: (context, snapshot) {
@@ -88,6 +90,14 @@ print("this is in film $movieId");
                           FilmItem(
                             filmImage:
                                 'https://image.tmdb.org/t/p/w500${data.posterPath}',
+                            addFilmWatchList: () {
+                              bookMarkFunction(
+                                  id: data.id ?? 0,
+                                  title: data.title ?? "",
+                                  image: data.backdropPath ?? "",
+                                  releaseDate: data.releaseDate ?? "",
+                                  isBooked: true, description: data.overview??"");
+                            },
                           ),
                           SizedBox(
                             width: 6,
@@ -100,15 +110,18 @@ print("this is in film $movieId");
                                 Wrap(
                                   spacing: 3,
                                   runSpacing: 5,
-                                  children: List.generate(data.genres?.length??0, (index) {
+                                  children: List.generate(
+                                      data.genres?.length ?? 0, (index) {
                                     return InkWell(
                                       onTap: () {
-                                        Navigator.pushNamed(context,
-                                            CategoryFilmList.routeName, arguments:data. genres?[index],);
+                                        Navigator.pushNamed(
+                                          context,
+                                          CategoryFilmList.routeName,
+                                          arguments: data.genres?[index],
+                                        );
                                       },
                                       child: CategoryChip(
-                                        text:data. genres?[index].name??"",
-
+                                        text: data.genres?[index].name ?? "",
                                       ),
                                     );
                                   }),
@@ -134,7 +147,9 @@ print("this is in film $movieId");
                                       width: 3,
                                     ),
                                     Text(
-                                      (data.voteAverage.toString().substring(0,3)),
+                                      (data.voteAverage
+                                          .toString()
+                                          .substring(0, 3)),
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ],
@@ -194,26 +209,29 @@ print("this is in film $movieId");
                                       child: Padding(
                                         padding:
                                             EdgeInsets.symmetric(vertical: 4),
-                                        child: SizedBox(
-                                          width:
-                                              170, // Fixed width for each item
-                                          child: Container(
-                                            child: FilmItemWithRating(
-                                              image:
-                                                  'https://image.tmdb.org/t/p/w200${similarData[index].posterPath}',
-                                              movieName:
-                                                  similarData[index].title ??
-                                                      "Unknown",
-                                              rating: similarData[index]
-                                                      .voteAverage
-                                                      .toString() ??
-                                                  "No rating", // Fixed the type issue here
-                                              publicationDate:
-                                                  similarData[index]
-                                                          .releaseDate ??
-                                                      "Unknown",
-                                            ),
-                                          ),
+                                        child: FilmItemWithRating(
+                                          image:
+                                              'https://image.tmdb.org/t/p/w200${similarData[index].posterPath}',
+                                          movieName:
+                                              similarData[index].title ??
+                                                  "Unknown",
+                                          rating: similarData[index]
+                                                  .voteAverage
+                                                  .toString() ??
+                                              "No rating",
+                                          publicationDate:
+                                              similarData[index]
+                                                      .releaseDate ??
+                                                  "Unknown",
+                                          addFilmWatchList:
+                                          (){
+                                            bookMarkFunction(
+                                                id: similarData[index].id??0,
+                                                title: similarData[index].title??"",
+                                                image: similarData[index].backdropPath??"",
+                                                releaseDate: similarData[index].releaseDate??"",
+                                                isBooked: true, description: similarData[index].overview??"");
+                                          }
                                         ),
                                       ),
                                     );
@@ -237,5 +255,21 @@ print("this is in film $movieId");
         );
       },
     );
+  }
+
+  bookMarkFunction(
+      {required int id,
+      required String title,
+      required String image,
+      required String releaseDate,
+      required String description,
+      required bool isBooked}) {
+    FilmWatchListModel model = FilmWatchListModel(
+        id: id,
+        title: title,
+        image: image,
+        releaseDate: releaseDate,
+        isBooked: isBooked, description:description );
+    FirebaseFunctions.addFilmWatchList(model);
   }
 }

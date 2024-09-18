@@ -36,13 +36,13 @@ class BrowseTab extends StatelessWidget {
       future: ApiManager.getMoviesList(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Text("somthing went wrong");
+          return Center(child: Text("somthing went wrong"));
         } else if (snapshot.hasData) {
           var genres = snapshot.data?.genres ?? [];
           if (genres.isEmpty) {
-            return Text("no categories to browse");
+            return Center(child: Text("no categories to browse"));
           } else {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,

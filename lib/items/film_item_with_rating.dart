@@ -8,16 +8,20 @@ class FilmItemWithRating extends StatelessWidget {
   String image;
   String movieName;
   String publicationDate;
+  Function addFilmWatchList;
   FilmItemWithRating(
       {required this.rating,
       required this.movieName,
       required this.image,
       required this.publicationDate,
+      required this.addFilmWatchList,
       super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 100,
+      height: 190,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           color: Color(0xFF343534),
@@ -33,7 +37,9 @@ class FilmItemWithRating extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           FilmItem(
-            filmImage: image,
+            filmImage: image, addFilmWatchList:(){
+            addFilmWatchList();
+          },
           ),
           Padding(
             padding: EdgeInsets.only(left: 6, bottom: 10, right: 30, top: 6),
